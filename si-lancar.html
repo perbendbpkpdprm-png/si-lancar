@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SI-LANCAR BPKPD Kota Pariaman</title>
+    <style>
+        :root {
+            --primary-color: #2980b9;
+            --secondary-color: #3498db;
+            --accent-color: #16a085;
+            --bg-color: #f4f7f6;
+            --text-color: #2c3e50;
+        }
+
+        body { 
+            font-family: 'Inter', -apple-system, sans-serif; 
+            background: var(--bg-color); 
+            padding: 40px 20px; 
+            display: flex; 
+            justify-content: center;
+            color: var(--text-color);
+        }
+
+        .container { 
+            max-width: 500px; 
+            width: 100%; 
+            background: white; 
+            padding: 40px; 
+            border-radius: 24px; 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.05); 
+            border-top: 10px solid var(--primary-color);
+        }
+
+        .header { text-align: center; margin-bottom: 30px; }
+        .header img { width: 85px; height: auto; margin-bottom: 20px; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1)); }
+        .header h2 { color: var(--primary-color); margin: 0; font-size: 32px; letter-spacing: -1px; font-weight: 800; }
+        
+        .tagline-container { margin-top: 10px; }
+        .tagline { color: var(--secondary-color); font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+        .sub-tagline { color: #7f8c8d; font-size: 13px; margin-top: 4px; font-weight: 500; }
+        
+        .instansi { background: #f8f9fa; padding: 6px 15px; border-radius: 50px; display: inline-block; margin-top: 15px; font-size: 11px; font-weight: 700; color: #95a5a6; border: 1px solid #eee; }
+
+        label { display: block; margin-top: 20px; font-weight: 600; font-size: 14px; color: #34495e; }
+        
+        input, select { 
+            width: 100%; 
+            padding: 14px; 
+            margin-top: 8px; 
+            border-radius: 12px; 
+            border: 2px solid #edf2f7; 
+            box-sizing: border-box; 
+            font-size: 15px;
+            transition: all 0.3s ease;
+            background: #fdfdfd;
+        }
+
+        input:focus, select:focus { 
+            border-color: var(--secondary-color); 
+            outline: none; 
+            background: white;
+            box-shadow: 0 0 0 4px rgba(52, 152, 219, 0.1);
+        }
+
+        .section-title { 
+            margin-top: 35px; 
+            font-size: 12px; 
+            font-weight: 800; 
+            color: var(--accent-color); 
+            text-transform: uppercase; 
+            letter-spacing: 1.5px;
+            border-bottom: 2px solid #f1f1f1;
+            padding-bottom: 8px;
+        }
+
+        button { 
+            width: 100%;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white; 
+            border: none; 
+            cursor: pointer; 
+            margin-top: 40px; 
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 16px; 
+            font-weight: 700; 
+            text-transform: uppercase; 
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 20px rgba(41, 128, 185, 0.2);
+        }
+
+        button:hover { transform: translateY(-3px); box-shadow: 0 15px 25px rgba(41, 128, 185, 0.3); }
+        button:active { transform: translateY(-1px); }
+        button:disabled { background: #d1d8e0; cursor: not-allowed; transform: none; box-shadow: none; }
+
+        #msg { text-align: center; margin-top: 25px; font-size: 14px; font-weight: 600; border-radius: 12px; transition: all 0.3s; }
+        
+        .footer { text-align: center; font-size: 11px; margin-top: 50px; color: #bdc3c7; line-height: 1.6; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <img src="logo.png" alt="Logo Pariaman">
+        <h2>SI-LANCAR</h2>
+        <div class="tagline-container">
+            <div class="tagline">Sistem Informasi Layanan Cepat Antar Berkas</div>
+            <div class="sub-tagline">Pengurusan SKPP Online</div>
+        </div>
+        <div class="instansi">BPKPD KOTA PARIAMAN</div>
+    </div>
+    
+    <form id="uploadForm">
+        <label>Nama Lengkap Pegawai</label>
+        <input type="text" id="nama" placeholder="Contoh: Budi Santoso, S.Kom" required>
+
+        <label>NIP</label>
+        <input type="number" id="nip" placeholder="Masukkan 18 digit NIP" required>
+
+        <label>Alasan Pengajuan</label>
+        <select id="alasan">
+            <option value="Pensiun">Pensiun</option>
+            <option value="Mutasi">Mutasi / Pindah Instansi</option>
+            <option value="Meninggal">Meninggal Dunia</option>
+        </select>
+
+        <div class="section-title">Upload Dokumen Persyaratan</div>
+
+        <label id="labelSK">Scan SK Pensiun</label>
+        <input type="file" id="fileSK" accept=".pdf,.jpg,.jpeg" required>
+
+        <label>Pas Foto Berwarna (4x6)</label>
+        <input type="file" id="fileFoto" accept=".jpg,.jpeg" required>
+
+        <label>Surat Rekomendasi Bebas Temuan (Inspektorat)</label>
+        <input type="file" id="fileInspektorat" accept=".pdf,.jpg,.jpeg" required>
+
+        <div id="divKematian" style="display:none;">
+            <label>Scan Akta Kematian (Disdukcapil)</label>
+            <input type="file" id="fileKematian" accept=".pdf,.jpg,.jpeg">
+        </div>
+
+        <!-- Teks tombol sudah diganti di sini -->
+        <button type="submit" id="submitBtn">Kirim Berkas</button>
+    </form>
+
+    <div id="msg"></div>
+
+    <div class="footer">
+        © 2026 Bidang Perbendaharaan & Kas Daerah<br>
+        Badan Pengelolaan Keuangan dan Pendapatan Daerah
+    </div>
+</div>
+
+<script>
+    const form = document.getElementById('uploadForm');
+    const msg = document.getElementById('msg');
+    const btn = document.getElementById('submitBtn');
+    const alasanSelect = document.getElementById('alasan');
+    const divKematian = document.getElementById('divKematian');
+    const fileKematian = document.getElementById('fileKematian');
+
+    alasanSelect.addEventListener('change', function() {
+        const val = this.value;
+        const label = document.getElementById('labelSK');
+        
+        if(val === "Meninggal") {
+            label.innerText = "Scan SK Pensiun Meninggal";
+            divKematian.style.display = "block";
+            fileKematian.required = true;
+        } else {
+            divKematian.style.display = "none";
+            fileKematian.required = false;
+            label.innerText = val === "Mutasi" ? "Scan SK Pindah/Penempatan" : "Scan SK Pensiun";
+        }
+    });
+
+    const readFile = (file) => {
+        return new Promise((resolve) => {
+            if (!file) resolve(null);
+            const reader = new FileReader();
+            reader.onload = () => resolve(Array.from(new Uint8Array(reader.result)));
+            reader.readAsArrayBuffer(file);
+        });
+    };
+
+    form.onsubmit = async (e) => {
+        e.preventDefault();
+        btn.disabled = true;
+        btn.innerHTML = "Mengirim...";
+        msg.style.color = "#34495e";
+        msg.innerHTML = "⌛ Berkas sedang dikirim ke server BPKPD...";
+
+        try {
+            const fSK = document.getElementById('fileSK').files[0];
+            const fFoto = document.getElementById('fileFoto').files[0];
+            const fIns = document.getElementById('fileInspektorat').files[0];
+            const fKem = fileKematian.files[0];
+
+            const [bytesSK, bytesFoto, bytesIns, bytesKem] = await Promise.all([
+                readFile(fSK), readFile(fFoto), readFile(fIns), readFile(fKem)
+            ]);
+
+            let filesArray = [
+                { role: "SK", filename: fSK.name, mimeType: fSK.type, bytes: bytesSK },
+                { role: "FOTO", filename: fFoto.name, mimeType: fFoto.type, bytes: bytesFoto },
+                { role: "INSPEKTORAT", filename: fIns.name, mimeType: fIns.type, bytes: bytesIns }
+            ];
+
+            if (bytesKem) {
+                filesArray.push({ role: "AKTA_KEMATIAN", filename: fKem.name, mimeType: fKem.type, bytes: bytesKem });
+            }
+
+            const payload = {
+                nama: document.getElementById('nama').value,
+                nip: document.getElementById('nip').value,
+                alasan: alasanSelect.value,
+                files: filesArray
+            };
+
+            const webAppUrl = "https://google.com";
+
+            const response = await fetch(webAppUrl, { method: 'POST', body: JSON.stringify(payload) });
+            const result = await response.json();
+
+            if (result.result === "success") {
+                msg.style.color = "#27ae60";
+                msg.style.padding = "15px";
+                msg.style.background = "#eafaf1";
+                msg.innerHTML = "✅ BERHASIL!<br>Berkas telah diterima. Silakan tunggu konfirmasi melalui WhatsApp.";
+                form.reset();
+                divKematian.style.display = "none";
+            } else { throw new Error(result.error); }
+
+        } catch (error) {
+            msg.style.color = "#e74c3c";
+            msg.style.background = "#fdedec";
+            msg.style.padding = "15px";
+            msg.innerHTML = "❌ GAGAL!<br>Terjadi gangguan koneksi. Silakan coba lagi.";
+        } finally {
+            btn.disabled = false;
+            btn.innerHTML = "Kirim Berkas";
+        }
+    };
+</script>
+</body>
+</html>
