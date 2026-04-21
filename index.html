@@ -229,7 +229,7 @@
                 files: filesArray
             };
 
-            const webAppUrl = "https://google.com";
+            const webAppUrl = "https://script.google.com/macros/s/AKfycby59RqqI8LdLK4fZMl8jLT6YIKr3BskRa1z5JGWfPDB5Xp041mNWTF6SYZQdC5hDiUe/exec";
 
             const response = await fetch(webAppUrl, { method: 'POST', body: JSON.stringify(payload) });
             const result = await response.json();
